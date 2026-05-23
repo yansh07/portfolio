@@ -168,6 +168,7 @@ export default function Portfolio() {
             alt="Priyanshu"
             width={300}
             height={300}
+            priority
             className="rounded-xl border border-zinc-800 grayscale hover:grayscale-0 transition-all"
           />
         </div>
