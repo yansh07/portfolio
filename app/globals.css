@@ -1,26 +1,59 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  body {
+    background-image: url('/bg.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', ui-monospace, monospace;
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #0a0a0a;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #22c55e33;
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #22c55e66;
+  }
+
+  /* Selection */
+  ::selection {
+    background: #22c55e33;
+    color: #a3e635;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Glitch keyframe */
+@keyframes glitch {
+  0%   { clip-path: inset(0 0 90% 0); transform: translate(-2px, 0); }
+  20%  { clip-path: inset(60% 0 20% 0); transform: translate(2px, 0); }
+  40%  { clip-path: inset(40% 0 50% 0); transform: translate(0, -2px); }
+  60%  { clip-path: inset(80% 0 5% 0); transform: translate(-1px, 1px); }
+  80%  { clip-path: inset(20% 0 75% 0); transform: translate(1px, -1px); }
+  100% { clip-path: inset(0 0 90% 0); transform: translate(0, 0); }
+}
+
+/* Scanline flicker */
+@keyframes scanline {
+  0%, 100% { opacity: 0.03; }
+  50% { opacity: 0.06; }
 }
