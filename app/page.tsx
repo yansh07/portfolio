@@ -1,387 +1,329 @@
 "use client";
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, useScroll, useTransform, useInView, useSpring } from 'framer-motion';
+import { Terminal, Database, Server, Code2, Mail, Cpu, Box, Braces, TerminalSquare } from 'lucide-react';
+import { FaSquareGithub, FaLinkedin } from 'react-icons/fa6';
 
-import { useEffect, useState } from "react";
-import Image from "next/image";
+// --- CUSTOM HOOKS & COMPONENTS ---
 
-type SkillBarProps = {
-  label: string;
-  level: number;
-  color: string;
-  animated?: boolean;
+// Aggressive Typewriter Effect
+const Typewriter = ({ text, speed = 40, delay = 0, className = "" }) => {
+  const [displayedText, setDisplayedText] = useState("");
+  const [started, setStarted] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setStarted(true), delay);
+    return () => clearTimeout(timer);
+  }, [delay]);
+
+  useEffect(() => {
+    if (!started) return;
+    let i = 0;
+    const typing = setInterval(() => {
+      setDisplayedText(text.slice(0, i + 1));
+      i++;
+      if (i === text.length) clearInterval(typing);
+    }, speed);
+    return () => clearInterval(typing);
+  }, [text, speed, started]);
+
+  return (
+    <span className={className}>
+      {displayedText}
+      <motion.span
+        animate={{ opacity: [0, 1, 0] }}
+        transition={{ repeat: Infinity, duration: 0.8 }}
+        className="inline-block w-3 h-5 ml-1 bg-emerald-500 align-middle"
+      />
+    </span>
+  );
 };
 
-function SkillBar({ label, level, color, animated = true }: SkillBarProps) {
+// Arrogant Number Counter
+const Counter = ({ from, to }) => {
+  const nodeRef = useRef(null);
+  const inView = useInView(nodeRef, { once: true, margin: "-100px" });
+  const [count, setCount] = useState(from);
+
+  useEffect(() => {
+    if (inView) {
+      let current = from;
+      const step = Math.ceil((to - from) / 40);
+      const timer = setInterval(() => {
+        current += step;
+        if (current >= to) {
+          setCount(to);
+          clearInterval(timer);
+        } else {
+          setCount(current);
+        }
+      }, 30);
+      return () => clearInterval(timer);
+    }
+  }, [inView, from, to]);
+
+  return <span ref={nodeRef}>{count}</span>;
+};
+
+// --- MAIN PORTFOLIO COMPONENT ---
+
+export default function App() {
+  const { scrollYProgress } = useScroll();
+  const backgroundY = useTransform(scrollYProgress, [0, 1], ['0%', '50%']);
+  
   return (
-    <div>
-      <div className="flex justify-between mb-1 font-mono text-xs">
-        <span className="text-zinc-300">{label}</span>
-        <span style={{ color }}>{level}%</span>
-      </div>
-      <div className="bg-zinc-800 h-2 rounded-full overflow-hidden">
-        <div
-          className="h-full rounded-full transition-all duration-1000 ease-out"
-          style={{ width: animated ? `${level}%` : "0%", backgroundColor: color }}
+    <div className="min-h-screen bg-zinc-950 text-zinc-300 font-sans selection:bg-emerald-500 selection:text-black overflow-x-hidden">
+      
+      {/* Glitchy Background Grain */}
+      <div className="fixed inset-0 opacity-[0.03] pointer-events-none z-50" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E")' }}></div>
+
+      {/* --- HERO SECTION --- */}
+      <section className="relative h-screen flex flex-col justify-center px-8 md:px-24 border-b border-zinc-900 overflow-hidden">
+        <motion.div 
+          style={{ y: backgroundY }}
+          className="absolute inset-0 bg-gradient-to-b from-emerald-950/10 to-transparent pointer-events-none"
         />
-      </div>
+        
+        <div className="z-10 max-w-4xl">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="flex items-center gap-4 mb-6 text-emerald-500 font-mono text-sm uppercase tracking-widest"
+          >
+            <TerminalSquare size={16} />
+            <span>System Initialized // v1.0.0</span>
+          </motion.div>
+          
+          <h1 className="text-5xl md:text-8xl font-black tracking-tighter text-white mb-6 leading-[1.1]">
+            <Typewriter text="Oh, good." delay={500} speed={60} /> <br />
+            <Typewriter text="Another recruiter." delay={1500} speed={60} />
+          </h1>
+          
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 3.5, duration: 1 }}
+            className="text-lg md:text-2xl text-zinc-400 max-w-2xl font-light mb-12"
+          >
+            I'm <strong className="text-white">Priyanshu Kumar Singh</strong>. I'm currently tolerating a BCA program at DIT University. I write bare-metal C, build scalable backends, and interface with the Linux kernel while you struggle to center a div. 
+            <br/><br/>
+            Keep scrolling if you can comprehend greatness.
+          </motion.div>
+
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 4 }}
+            className="flex flex-wrap gap-4 font-mono text-sm"
+          >
+            <div className="px-4 py-2 border border-zinc-800 bg-zinc-900/50 text-white flex items-center gap-3">
+              <Braces size={16} className="text-emerald-500" />
+              <span>LeetCode Problems Devoured: <strong className="text-emerald-400 text-lg"><Counter from={0} to={180} />+</strong></span>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* --- SKILLS SECTION --- */}
+      <section className="py-32 px-8 md:px-24 relative">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-4xl md:text-6xl font-black text-white mb-16 tracking-tight flex items-center gap-4">
+            <Cpu className="text-emerald-500" size={48} />
+            I Speak Machine.
+          </h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <SkillCard 
+              icon={<Terminal size={32} />}
+              title="Languages"
+              skills={['C (Bare-Metal)', 'Python', 'JavaScript/TypeScript']}
+              desc="I speak these better than I speak to humans. I actually know how dynamic heap memory works."
+            />
+            <SkillCard 
+              icon={<Server size={32} />}
+              title="Backend & APIs"
+              skills={['Node.js', 'FastAPI', 'Next.js']}
+              desc="I build asynchronous task pipelines that handle your garbage code submissions without crashing."
+            />
+            <SkillCard 
+              icon={<Database size={32} />}
+              title="Databases & Infra"
+              skills={['PostgreSQL', 'Redis', 'Docker']}
+              desc="Where I securely store your irrelevant opinions and session logs in under 50ms."
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* --- PROJECTS SECTION --- */}
+      <section className="py-32 px-8 md:px-24 bg-zinc-900/20 border-y border-zinc-900">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-4xl md:text-6xl font-black text-white mb-6 tracking-tight">
+            Look What I Built, Peasant.
+          </h2>
+          <p className="text-zinc-400 font-mono mb-16 max-w-2xl">
+            $ ls -la /usr/local/masterpieces/
+          </p>
+
+          <div className="space-y-24">
+            {/* Project 1: Abyss Shell */}
+            <ProjectCard 
+              title="Abyss Shell"
+              tech={['C', 'Linux Kernel API', 'POSIX']}
+              links={{ github: 'https://github.com/yansh/abyss-shell' }}
+            >
+              <p>
+                Architected a fully functional Unix shell in bare-metal C. Why? Because standard terminals bored me. I interface directly with the Linux kernel via <code className="text-emerald-400 bg-emerald-950/30 px-1">fork()</code> and <code className="text-emerald-400 bg-emerald-950/30 px-1">execvp()</code>.
+              </p>
+              <ul className="list-disc list-inside mt-4 space-y-2 text-zinc-400">
+                <li>Engineered a dynamic multi-pipe parser allocating File Descriptors without deadlocks.</li>
+                <li>Hijacked Standard Streams using dup2() for I/O redirection.</li>
+                <li>Enforced strict dynamic heap memory management. Zero memory leaks. Try doing that in JavaScript.</li>
+              </ul>
+            </ProjectCard>
+
+            {/* Project 2: OopsEngine */}
+            <ProjectCard 
+              title="OopsEngine"
+              tech={['Python', 'FastAPI', 'Docker', 'Redis', 'PostgreSQL']}
+              links={{ github: 'https://github.com/yansh/Oops-Engine', live: 'https://oopsengine.vercel.app/' }}
+            >
+              <p>
+                A scalable remote code execution engine. I designed it to run your untrusted, poorly written Python scripts inside isolated Docker containers.
+              </p>
+              <ul className="list-disc list-inside mt-4 space-y-2 text-zinc-400">
+                <li>Constrained to 0.5 CPU cores and 128MB memory because that's all your code deserves.</li>
+                <li>Engineered an async task pipeline via Redis Queue handling 50+ concurrent submissions.</li>
+                <li>Implemented strict network isolation. 100% reduction in DoS vulnerabilities. You're welcome.</li>
+              </ul>
+            </ProjectCard>
+          </div>
+        </div>
+      </section>
+
+      {/* --- CONTACT SECTION --- */}
+      <section className="py-40 px-8 md:px-24 relative overflow-hidden flex flex-col items-center justify-center text-center">
+        <motion.div 
+          initial={{ scale: 0.9, opacity: 0 }}
+          whileInView={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 0.5 }}
+          className="z-10"
+        >
+          <h2 className="text-5xl md:text-8xl font-black text-white mb-8 tracking-tighter">
+            Fine, Hire Me.
+          </h2>
+          <p className="text-xl text-zinc-400 mb-12 max-w-xs md:max-w-xl mx-auto">
+            You've made it this far. You might as well send me an email. Try not to bore me with standard HR templates.
+          </p>
+          
+          <motion.a 
+            href="mailto:pksingh69313@gmail.com"
+            whileHover={{ scale: 1.05, textShadow: "0px 0px 8px rgb(16 185 129 / 0.5)" }}
+            className="inline-block text-xl md:text-5xl font-mono text-emerald-500 border-b-2 border-emerald-500/30 hover:border-emerald-500 pb-2 transition-colors duration-300"
+          >
+            pksingh69313@gmail.com
+          </motion.a>
+
+          <div className="flex justify-center gap-8 mt-16">
+            <SocialLink icon={<FaSquareGithub size={24} />} href="https://github.com/yansh07" label="GitHub" />
+            <SocialLink icon={<FaLinkedin size={24} />} href="https://linkedin.com/in/yansh08" label="LinkedIn" />
+          </div>
+        </motion.div>
+      </section>
+
     </div>
   );
 }
 
-type GlitchHeadingProps = {
-  text: string;
-  className?: string;
-};
+// --- SUBCOMPONENTS ---
 
-function GlitchHeading({ text, className = "" }: GlitchHeadingProps) {
-  return <span className={className}>{text}</span>;
+function SkillCard({ icon, title, skills, desc }) {
+  return (
+    <motion.div 
+      whileHover={{ y: -10, borderColor: 'rgb(16 185 129 / 0.5)' }}
+      className="p-8 border border-zinc-800 bg-zinc-950/50 backdrop-blur-sm relative group overflow-hidden transition-colors"
+    >
+      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-emerald-500 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+      <div className="text-emerald-500 mb-6">{icon}</div>
+      <h3 className="text-xl font-bold text-white mb-4">{title}</h3>
+      <p className="text-zinc-400 mb-6 text-sm">{desc}</p>
+      <div className="flex flex-wrap gap-2">
+        {skills.map((skill, i) => (
+          <span key={i} className="px-3 py-1 bg-zinc-900 text-zinc-300 text-xs font-mono border border-zinc-800">
+            {skill}
+          </span>
+        ))}
+      </div>
+    </motion.div>
+  );
 }
 
-const PROJECTS = [
-  {
-    name: "Oversight",
-    emoji: "🕵️",
-    stack: ["Go", "React", "TypeScript", "Redis", "AES-256"],
-    tagline: "Hide secrets in PNGs. NSA-approved† (†not really)",
-    desc: "Steganography-based file sharing. Embeds AES-256 encrypted data inside innocent-looking PNG images. Zero-knowledge arch — server sees nothing. Files self-destruct after download like a spy movie, but real.",
-    github: "https://github.com/yansh07/oversight",
-    live: "https://oversight-ten.vercel.app/",
-    color: "#22c55e",
-  },
-  {
-    name: "Ledgerly",
-    emoji: "💸",
-    stack: ["FastAPI", "Python", "React", "PostgreSQL", "Docker"],
-    tagline: "Personal finance dashboard. Will judge your spending.",
-    desc: "Full-stack finance tracker with Google OAuth, JWT auth, real-time expense viz, and email alerts when you've blown your budget on chai again. Alembic migrations, background tasks, the works.",
-    github: "https://github.com/yansh07/Ledgerly",
-    live: "https://ledgerly-sandy.vercel.app/",
-    color: "#facc15",
-  },
-  {
-    name: "Gophar",
-    emoji: "🦫",
-    stack: ["Go (Gin)", "React", "PostgreSQL", "Telegram API"],
-    tagline: "Uptime monitor that texts you before your boss does.",
-    desc: "Concurrent health-check engine using Goroutines. Pings your services, detects downtime, fires Telegram alerts with spam suppression so it doesn't become the boy who cried wolf. Clean Architecture, because we're adults.",
-    github: "https://github.com/yansh07/gophar",
-    live: "https://gophar.vercel.app/",
-    color: "#22d3ee",
-  },
-];
-
-const SKILLS = [
-  { label: "Go", level: 92, color: "#22c55e" },
-  { label: "TypeScript", level: 84, color: "#38bdf8" },
-  { label: "Python", level: 88, color: "#facc15" },
-  { label: "React / Next.js", level: 80, color: "#a78bfa" },
-  { label: "PostgreSQL", level: 76, color: "#60a5fa" },
-  { label: "Docker", level: 82, color: "#f97316" },
-];
-
-const FUN_FACTS = [
-  "Solved 180+ LeetCode problems. Still gets surprised by off-by-one errors.",
-  "450+ commits across 7+ repos. Git blame is a horror movie.",
-  "Writes Go code professionally. Go routines are just anxiety with benefits.",
-  "Uses Docker religiously. \"Works on my machine\" is no longer an excuse.",
-  "BCA student who somehow builds production-grade systems. Overachiever detected.",
-  "Tried Redis TTL for data expiry. Uses the same approach on bad code.",
-];
-
-const MEMES = [
-  { top: "It works on", bot: "my machine 🐳", sub: "(containerised it anyway)" },
-  { top: "Concurrent goroutines?", bot: "What could go wrong", sub: "(narrator: a lot did)" },
-  { top: "Zero knowledge", bot: "architecture", sub: "(server: 😶‍🌫️)" },
-  { top: "NeetCode 150", bot: "completed btw", sub: "(asks for hints on easy problems)" },
-];
-
-export default function Portfolio() {
-  const [activeSection, setActiveSection] = useState("hero");
-  const [funFactIdx, setFunFactIdx] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setFunFactIdx(i => (i + 1) % FUN_FACTS.length);
-    }, 3000);
-    return () => clearInterval(interval);
-  }, []);
-
+function ProjectCard({ title, tech, children, links }) {
   return (
-    <div className="min-h-screen bg-[#080808] text-zinc-100 overflow-x-hidden">
-      {/* Scanline overlay */}
-      <div
-        className="pointer-events-none fixed inset-0 z-50 opacity-[0.03]"
-        style={{
-          backgroundImage: "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.15) 2px, rgba(255,255,255,0.15) 4px)",
-        }}
-      />
-
-      {/* Nav */}
-      <nav className="fixed top-0 left-0 right-0 z-40 bg-[#080808]/90 backdrop-blur border-b border-zinc-800">
-        <div className="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between font-mono text-sm">
-          <span className="text-green-400 font-bold tracking-widest">PK<span className="text-zinc-500">://</span>SINGH</span>
-          <div className="flex md:gap-6 gap-1 px-1">
-            {["about", "skills", "projects", "contact"].map(s => (
-              <a
-                key={s}
-                href={`#${s}`}
-                className="text-zinc-400 hover:text-green-400 transition-colors uppercase tracking-widest text-xs"
-              >
-                {s}
-              </a>
-            ))}
-          </div>
+    <motion.div 
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-100px" }}
+      className="relative border border-zinc-800 bg-zinc-950 rounded-lg overflow-hidden group"
+    >
+      {/* Terminal Header */}
+      <div className="flex items-center px-4 py-3 border-b border-zinc-800 bg-zinc-900">
+        <div className="flex gap-2 mr-4">
+          <div className="w-3 h-3 rounded-full bg-red-500/20 group-hover:bg-red-500 transition-colors" />
+          <div className="w-3 h-3 rounded-full bg-yellow-500/20 group-hover:bg-yellow-500 transition-colors" />
+          <div className="w-3 h-3 rounded-full bg-green-500/20 group-hover:bg-green-500 transition-colors" />
         </div>
-      </nav>
+        <div className="font-mono text-xs text-zinc-500 flex-1 text-center font-medium">
+          guest@priyanshu: ~/projects/{title.toLowerCase().replace(' ', '-')}
+        </div>
+      </div>
 
-      {/* HERO */}
-      <section id="hero" className="min-h-screen flex flex-col justify-center px-6 pt-24 pb-12 max-w-5xl mx-auto">
-        <div className="grid md:grid-cols-2 gap-12 items-center">
+      <div className="p-8 md:p-12">
+        <div className="flex flex-col md:flex-row md:items-start justify-between gap-6 mb-8">
           <div>
-            <p className="font-mono text-green-400 text-sm mb-4 tracking-widest">{"// hello, world();"}</p>
-            <h1 className="text-5xl md:text-6xl font-black leading-none mb-2 tracking-tight">
-              <GlitchHeading text="PRIYANSHU" className="block text-white hover:cursor-crosshair" />
-              <GlitchHeading text="KUMAR" className="block text-green-400 hover:cursor-crosshair" />
-              <GlitchHeading text="SINGH" className="block text-zinc-500 hover:cursor-crosshair" />
-            </h1>
-            <p className="mt-4 text-zinc-400 font-mono text-sm leading-relaxed">
-              Full-Stack Developer · Pythonista · Person who<br />
-              actually reads documentation (sometimes).
-            </p>
-            <div className="mt-6 flex flex-wrap gap-3">
-              <a href="#projects" className="px-5 py-2.5 bg-green-500 text-black font-bold font-mono text-sm rounded hover:bg-green-400 transition-colors">
-                ./view-work
-              </a>
-              <a href="#contact" className="px-5 py-2.5 border border-zinc-600 text-zinc-300 font-mono text-sm rounded hover:border-green-500 hover:text-green-400 transition-colors">
-                sudo contact-me
-              </a>
-            </div>
-
-            {/* rotating fun fact */}
-            <div className="mt-8 p-3 bg-zinc-900 border-l-2 border-yellow-400 rounded font-mono text-xs text-zinc-400">
-              <span className="text-yellow-400">$ random_fact.sh </span>
-              <span className="text-zinc-300 block mt-1 transition-all duration-500">{FUN_FACTS[funFactIdx]}</span>
-            </div>
-          </div>
-
-          <Image
-            src="/image.png"
-            alt="Priyanshu"
-            width={300}
-            height={300}
-            priority
-            className="rounded-xl border border-zinc-800 grayscale hover:grayscale-0 transition-all"
-          />
-        </div>
-      </section>
-
-      {/* ABOUT */}
-      <section id="about" className="py-20 px-6 max-w-5xl mx-auto">
-        <div className="mb-12">
-          <p className="font-mono text-green-400 text-sm mb-2">{"// cat about.md"}</p>
-          <h2 className="text-3xl font-black text-white">WHO IS THIS GUY?</h2>
-          <p className="text-zinc-600 font-mono text-xs mt-1">spoiler: it's complicated</p>
-        </div>
-
-        <div className="grid md:grid-cols-3 gap-6">
-          <div className="md:col-span-2 space-y-5">
-            <div className="p-6 bg-zinc-900 rounded-lg border border-zinc-800">
-              <p className="text-zinc-300 leading-relaxed">
-                I'm a <span className="text-green-400 font-mono">BCA student</span> at Dehradun Institute of Technology,
-                expected to graduate in May 2027 — which means I'm building production-grade systems while most people
-                my age are still figuring out what a <span className="text-yellow-400 font-mono">pointer</span> is.
-              </p>
-              <p className="text-zinc-400 leading-relaxed mt-3">
-                I write Go for the performance, Python when I need to get things done fast,
-                TypeScript because <span className="text-red-400 font-mono">any</span> is a skill issue,
-                and React because I enjoy pretending to understand state management.
-              </p>
-              <p className="text-zinc-500 leading-relaxed mt-3 text-sm italic">
-                Currently: somewhere between "junior dev" and "accidentally architecting distributed systems".
-              </p>
-            </div>
-
-            {/* Meme grid */}
-            <div className="grid grid-cols-2 gap-3">
-              {MEMES.map((m, i) => (
-                <div key={i} className="p-4 bg-[#0f0f0f] border border-zinc-800 rounded-lg text-center hover:border-green-800 transition-colors group">
-                  <p className="text-zinc-500 font-mono text-xs group-hover:text-zinc-400 transition-colors">{m.top}</p>
-                  <p className="text-white font-black text-sm my-1">{m.bot}</p>
-                  <p className="text-zinc-600 font-mono text-[10px]">{m.sub}</p>
-                </div>
+            <h3 className="text-3xl font-black text-white mb-4 group-hover:text-emerald-400 transition-colors">
+              {title}
+            </h3>
+            <div className="flex flex-wrap gap-2">
+              {tech.map((t, i) => (
+                <span key={i} className="px-2 py-1 bg-emerald-950/30 text-emerald-400 text-xs font-mono border border-emerald-900/50">
+                  {t}
+                </span>
               ))}
             </div>
           </div>
-
-          {/* Stats sidebar */}
-          <div className="space-y-4">
-            {[
-              { label: "LeetCode Problems", value: "180+", icon: "🔢", note: "NeetCode 150 ✓" },
-              { label: "GitHub Commits", value: "450+", icon: "📦", note: "across 7+ repos" },
-              { label: "Active Repos", value: "7+", icon: "🗂️", note: "not abandoned, promise" },
-              { label: "Languages", value: "5", icon: "🗣️", note: "Go is the best one" },
-            ].map(s => (
-              <div key={s.label} className="p-4 bg-zinc-900 border border-zinc-800 rounded-lg hover:border-zinc-700 transition-colors">
-                <div className="text-2xl mb-1">{s.icon}</div>
-                <div className="text-2xl font-black text-green-400 font-mono">{s.value}</div>
-                <div className="text-zinc-300 text-sm font-medium">{s.label}</div>
-                <div className="text-zinc-600 text-xs font-mono mt-1">{s.note}</div>
-              </div>
-            ))}
+          
+          <div className="flex gap-4">
+            {links.github && (
+              <a href={links.github} className="p-3 bg-zinc-900 text-white hover:bg-emerald-500 hover:text-black transition-colors rounded-md">
+                <FaSquareGithub size={20} />
+              </a>
+            )}
+            {links.live && (
+              <a href={links.live} className="p-3 bg-zinc-900 text-white hover:bg-emerald-500 hover:text-black transition-colors rounded-md">
+                <Box size={20} />
+              </a>
+            )}
           </div>
         </div>
-      </section>
 
-      {/* SKILLS */}
-      <section id="skills" className="py-20 px-6 bg-[#060606]">
-        <div className="max-w-5xl mx-auto">
-          <div className="mb-12">
-            <p className="font-mono text-green-400 text-sm mb-2">{"// ls -la skills/"}</p>
-            <h2 className="text-3xl font-black text-white">TECH STACK</h2>
-            <p className="text-zinc-600 font-mono text-xs mt-1">hover for existential dread</p>
-          </div>
-          <div className="grid md:grid-cols-2 gap-x-16 gap-y-2">
-            {SKILLS.map(s => <SkillBar key={s.label} {...s} />)}
-          </div>
-
-          {/* Tag cloud */}
-          <div className="mt-12 flex flex-wrap gap-2">
-            {["Goroutines", "Zero-Knowledge", "Clean Architecture", "AES-256", "Google OAuth", "JWT", "Alembic", "Docker", "Railway", "Vercel", "Telegram Bots", "REST APIs", "Redis TTL", "Concurrent Systems", "Postman"].map(tag => (
-              <span key={tag} className="px-3 py-1 bg-zinc-900 border border-zinc-700 rounded-full font-mono text-xs text-zinc-400 hover:border-green-600 hover:text-green-400 transition-colors cursor-default">
-                {tag}
-              </span>
-            ))}
-          </div>
+        <div className="text-zinc-300 leading-relaxed font-light text-lg">
+          {children}
         </div>
-      </section>
+      </div>
+    </motion.div>
+  );
+}
 
-      {/* PROJECTS */}
-      <section id="projects" className="py-20 px-6 max-w-5xl mx-auto">
-        <div className="mb-12">
-          <p className="font-mono text-green-400 text-sm mb-2">{"// git log --oneline --projects"}</p>
-          <h2 className="text-3xl font-black text-white">THINGS I BUILT</h2>
-          <p className="text-zinc-600 font-mono text-xs mt-1">and didn't break (mostly)</p>
-        </div>
-
-        <div className="grid md:grid-cols-1 gap-8">
-          {PROJECTS.map((p, i) => (
-            <div
-              key={p.name}
-              className="group relative p-6 bg-zinc-900 rounded-xl border border-zinc-800 hover:border-zinc-600 transition-all duration-300 overflow-hidden"
-            >
-              {/* glow accent */}
-              <div
-                className="absolute -top-px left-0 right-0 h-[2px] opacity-80"
-                style={{ backgroundColor: p.color }}
-              />
-              <div className="flex flex-wrap items-start justify-between gap-4">
-                <div className="flex-1">
-                  <div className="flex items-center gap-3 mb-2">
-                    <span className="text-3xl">{p.emoji}</span>
-                    <div>
-                      <h3 className="text-xl font-black text-white font-mono">{p.name}</h3>
-                      <p style={{ color: p.color }} className="text-xs font-mono italic">{p.tagline}</p>
-                    </div>
-                  </div>
-                  <p className="text-zinc-400 text-sm leading-relaxed mt-3 max-w-2xl">{p.desc}</p>
-                  <div className="flex flex-wrap gap-2 mt-4">
-                    {p.stack.map(s => (
-                      <span key={s} className="px-2 py-0.5 bg-[#0f0f0f] border border-zinc-700 rounded font-mono text-xs" style={{ color: p.color }}>
-                        {s}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-                <div className="flex gap-3 pt-1">
-                  <a href={p.github} className="px-3 py-1.5 border border-zinc-700 rounded font-mono text-xs text-zinc-400 hover:border-zinc-500 hover:text-white transition-colors">
-                    GitHub →
-                  </a>
-                  <a href={p.live} className="px-3 py-1.5 rounded font-mono text-xs font-bold text-black transition-colors" style={{ backgroundColor: p.color }}>
-                    Live ↗
-                  </a>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* GitHub CTA */}
-        <div className="mt-10 p-5 bg-[#0f0f0f] border border-zinc-800 rounded-lg font-mono text-sm grid grid-cols-1 md:flex items-center gap-4">
-          {/* <span className="text-zinc-500">$</span> */}
-          <span className="text-zinc-300"><span className="text-zinc-500 px-2">$</span>open github.com/yansh07</span>
-          <span className="text-zinc-600 ml-auto text-xs px-10 md:px-4">450+ commits · 7+ repos · all public · no regrets</span>
-          <a href="https://github.com/yansh07" target="_blank" rel="noopener noreferrer" className="px-3 py-1.5 bg-zinc-800 border border-zinc-700 rounded text-xs text-zinc-300 hover:bg-zinc-700 transition-colors whitespace-nowrap">
-            Visit →
-          </a>
-        </div>
-      </section>
-
-      {/* EDUCATION */}
-      <section className="py-20 px-6 bg-[#060606]">
-        <div className="max-w-5xl mx-auto">
-          <div className="mb-10">
-            <p className="font-mono text-green-400 text-sm mb-2">{"// cat education.log"}</p>
-            <h2 className="text-3xl font-black text-white">EDUCATION</h2>
-          </div>
-          <div className="flex items-start gap-6 p-6 bg-zinc-900 border border-zinc-800 rounded-xl max-w-2xl">
-            <div className="text-5xl">🎓</div>
-            <div>
-              <h3 className="text-lg font-black text-white">Bachelor of Computer Applications (BCA)</h3>
-              <p className="text-green-400 font-mono text-sm">Dehradun Institute of Technology</p>
-              <p className="text-zinc-500 font-mono text-xs mt-1">Expected May 2027 · Dehradun, India</p>
-              <div className="flex flex-wrap gap-2 mt-3">
-                {["DSA", "Operating Systems", "DBMS", "Computer Networks"].map(c => (
-                  <span key={c} className="px-2 py-0.5 bg-zinc-800 border border-zinc-700 rounded text-xs text-zinc-400 font-mono">{c}</span>
-                ))}
-              </div>
-              <p className="mt-3 text-zinc-500 text-xs italic font-mono">
-                "technically studying, practically building production systems"
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CONTACT */}
-      <section id="contact" className="py-24 px-6 max-w-5xl mx-auto text-center">
-        <p className="font-mono text-green-400 text-sm mb-2">{"// curl -X POST /hire-me"}</p>
-        <h2 className="text-4xl font-black text-white mb-4">LET'S WORK TOGETHER</h2>
-        <p className="text-zinc-500 max-w-md mx-auto mb-10 font-mono text-sm">
-          I'm open to internships, freelance projects, and full-time roles.<br />
-          I respond faster than my build pipelines, I promise.
-        </p>
-
-        <div className="grid sm:grid-cols-3 gap-4 max-w-xl mx-auto mb-10">
-          {[
-            { label: "Email", value: "pksingh69313@gmail.com", href: "mailto:pksingh69313@gmail.com", icon: "📧" },
-            { label: "LinkedIn", value: "yansh08", href: "https://linkedin.com/in/yansh08", icon: "💼" },
-            { label: "GitHub", value: "yansh07", href: "https://github.com/yansh07", icon: "🐙" },
-          ].map(c => (
-            <a
-              key={c.label}
-              href={c.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-4 bg-zinc-900 border border-zinc-800 rounded-xl hover:border-green-700 hover:bg-zinc-800 transition-all group"
-            >
-              <div className="text-2xl mb-2">{c.icon}</div>
-              <p className="text-zinc-500 font-mono text-xs uppercase tracking-widest">{c.label}</p>
-              <p className="text-zinc-300 font-mono text-xs mt-1 group-hover:text-green-400 transition-colors truncate">{c.value}</p>
-            </a>
-          ))}
-        </div>
-
-        <div className="inline-block p-4 bg-[#0f0f0f] border border-zinc-800 rounded-lg font-mono text-xs text-zinc-600">
-          <span className="text-green-400">status:</span> available for hire ·{" "}
-          <span className="text-green-400">response_time:</span> {"< 24h"} ·{" "}
-          <span className="text-green-400">coffee:</span> appreciated
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="border-t border-zinc-900 py-8 px-6 font-mono text-xs text-zinc-700 text-center">
-        <p>Built by Priyanshu Kumar Singh · No AI was harmed in the making of this portfolio</p>
-        <p className="mt-1">© {new Date().getFullYear()} · all bugs are features · {"{}'s your fear not mine"}</p>
-      </footer>
-    </div>
+function SocialLink({ icon, href, label }) {
+  return (
+    <a 
+      href={href}
+      target="_blank"
+      rel="noreferrer"
+      className="flex items-center gap-3 text-zinc-500 hover:text-emerald-400 transition-colors font-mono uppercase tracking-widest text-sm"
+    >
+      {icon} <span>{label}</span>
+    </a>
   );
 }
