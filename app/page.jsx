@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform, useInView, useSpring } from 'framer-motion';
-import { Terminal, Database, Server, Code2, Mail, Cpu, Box, Braces, TerminalSquare } from 'lucide-react';
+import { Terminal, Database, Server, Code2, Mail, Cpu, Box, Braces, TerminalSquare, BrushCleaning, Wrench, Network } from 'lucide-react';
 import { FaSquareGithub, FaLinkedin } from 'react-icons/fa6';
 
 // --- CUSTOM HOOKS & COMPONENTS ---
@@ -140,15 +140,33 @@ export default function App() {
               desc="I speak these better than I speak to humans. I actually know how dynamic heap memory works."
             />
             <SkillCard 
+              icon={<BrushCleaning size={32} />}
+              title="Frontend"
+              skills={['Next.js', 'React.js', 'TailwindCSS']}
+              desc="I engineer robust asynchronous pipelines that absorb heavy API loads and keep your UI buttery smooth."
+            />
+            <SkillCard 
               icon={<Server size={32} />}
               title="Backend & APIs"
-              skills={['Node.js', 'FastAPI', 'Next.js']}
+              skills={['Node.js', 'FastAPI']}
               desc="I build asynchronous task pipelines that handle your garbage code submissions without crashing."
+            />
+            <SkillCard 
+              icon={<Wrench size={32} />}
+              title="Infrastructure & DevOps"
+              skills={['Microsoft Azure', 'Docker', 'Celery', 'Redis', 'Linux', 'POSIX', 'Caddy']}
+              desc="I build the pipelines that absorb your 'ship it and pray' code submissions."
+            />
+            <SkillCard 
+              icon={<Network size={32} />}
+              title="Networking & Security"
+              skills={['SSL/TLS', 'DNS', 'CORS', 'JWT/JWKS Auth']}
+              desc="I build secure, sandboxed network pipelines that swallow your untrusted code submissions without denting our uptime."
             />
             <SkillCard 
               icon={<Database size={32} />}
               title="Databases & Infra"
-              skills={['PostgreSQL', 'Redis', 'Docker']}
+              skills={['PostgreSQL', 'Redis']}
               desc="Where I securely store your irrelevant opinions and session logs in under 50ms."
             />
           </div>
@@ -170,7 +188,7 @@ export default function App() {
             <ProjectCard 
               title="Abyss Shell"
               tech={['C', 'Linux Kernel API', 'POSIX']}
-              links={{ github: 'https://github.com/yansh/abyss-shell' }}
+              links={{ github: 'https://github.com/yansh07/abyss-shell' }}
             >
               <p>
                 Architected a fully functional Unix shell in bare-metal C. Why? Because standard terminals bored me. I interface directly with the Linux kernel via <code className="text-emerald-400 bg-emerald-950/30 px-1">fork()</code> and <code className="text-emerald-400 bg-emerald-950/30 px-1">execvp()</code>.
@@ -186,7 +204,7 @@ export default function App() {
             <ProjectCard 
               title="OopsEngine"
               tech={['Python', 'FastAPI', 'Docker', 'Redis', 'PostgreSQL']}
-              links={{ github: 'https://github.com/yansh/Oops-Engine', live: 'https://oopsengine.vercel.app/' }}
+              links={{ github: 'https://github.com/yansh07/OopsEngine', live: 'https://oopsengine.vercel.app/' }}
             >
               <p>
                 A scalable remote code execution engine. I designed it to run your untrusted, poorly written Python scripts inside isolated Docker containers.
