@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<!-- Primary SEO -->
+<title>Priyanshu Kumar Singh | Backend Developer • Systems Programmer • Python • C • FastAPI</title>
+
+<meta name="title" content="Priyanshu Kumar Singh | Backend Developer">
+<meta name="description" content="Backend-focused developer specializing in Python, C, FastAPI, Docker, Linux, React, Next.js, Azure, Redis, PostgreSQL, distributed systems and Unix programming.">
+<meta name="keywords" content="Priyanshu Kumar Singh, Backend Developer, Python Developer, C Programmer, FastAPI, React, Next.js, Docker, Linux, Azure, Redis, PostgreSQL, Systems Programming, Unix, POSIX, Software Engineer">
+<meta name="author" content="Priyanshu Kumar Singh">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#0f172a">
+
+<!-- Canonical -->
+<link rel="canonical" href="https://priyanshu22.vercel.app/">
+
+<!-- Favicon -->
+<link rel="icon" href="./image.png">
+<link rel="apple-touch-icon" href="./image.png">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Priyanshu Kumar Singh | Backend Developer">
+<meta property="og:description" content="Backend-focused developer building production systems with Python, C, FastAPI, Docker, Linux, Azure and React.">
+<meta property="og:image" content="https://priyanshu22.vercel.app/bg.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Priyanshu Kumar Singh Portfolio">
+<meta property="og:url" content="https://priyanshu22.vercel.app/">
+<meta property="og:site_name" content="Priyanshu Kumar Singh">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Priyanshu Kumar Singh | Backend Developer">
+<meta name="twitter:description" content="Backend-focused developer building production systems with Python, C, FastAPI, Docker, Linux, Azure and React.">
+<meta name="twitter:image" content="https://priyanshu22.vercel.app/bg.png">
+
+<!-- Optional -->
+<meta name="format-detection" content="telephone=no">
+<meta name="color-scheme" content="dark light">
+
+<!-- Structured Data -->
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Person",
+  "name":"Priyanshu Kumar Singh",
+  "jobTitle":"Backend Developer",
+  "description":"Backend-focused software developer specializing in Python, C, Linux, Docker and distributed systems.",
+  "url":"https://priyanshu22.vercel.app/",
+  "image":"https://priyanshu22.vercel.app/image.png",
+  "sameAs":[
+    "https://github.com/yansh07/",
+    "https://linkedin.com/in/yansh08/"
+  ],
+  "knowsAbout":[
+    "Python",
+    "C",
+    "JavaScript",
+    "Linux",
+    "FastAPI",
+    "React",
+    "Next.js",
+    "Docker",
+    "Redis",
+    "PostgreSQL",
+    "Microsoft Azure",
+    "Distributed Systems",
+    "POSIX",
+    "Nginx",
+    "Caddy"
+  ]
+}
+</script>
+
+<!-- Fonts via fontsource -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/fraunces@5.0.18/index.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/fraunces@5.0.18/latin-300-italic.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono@5.0.12/index.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/inter@5.0.8/index.css" />
+
+<!-- GSAP + ScrollTrigger -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/TextPlugin.min.js"></script>
+
+<style>
+  :root{
+    --bg: #0b0a08;
+    --bg-2: #111010;
+    --fg: #ece6d8;
+    --fg-dim: #a8a193;
+    --muted: #5a554a;
+    --accent: #c9a876;
+    --accent-2: #8b6f47;
+    --line: rgba(236,230,216,0.08);
+    --serif: 'Fraunces', 'Times New Roman', serif;
+    --mono: 'JetBrains Mono', ui-monospace, monospace;
+    --sans: 'Inter', system-ui, sans-serif;
+  }
+
+  *{ box-sizing: border-box; margin:0; padding:0; }
+
+  html, body{
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--sans);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  ::selection{ background: var(--accent); color: var(--bg); }
+
+  /* Grain overlay */
+  .grain{
+    position: fixed; inset:0; pointer-events:none; z-index: 100;
+    opacity: 0.08; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.9'/></svg>");
+  }
+
+  /* Vignette */
+  .vignette{
+    position: fixed; inset:0; pointer-events:none; z-index: 99;
+    background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.55) 100%);
+  }
+
+  /* Custom cursor */
+  .cursor-dot, .cursor-ring{
+    position: fixed; top:0; left:0; pointer-events:none; z-index: 9999;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    mix-blend-mode: difference;
+  }
+  .cursor-dot{ width:6px; height:6px; background: var(--fg); }
+  .cursor-ring{
+    width: 36px; height: 36px;
+    border: 1px solid var(--fg);
+    transition: width .25s ease, height .25s ease, border-color .25s ease, background .25s ease;
+  }
+  .cursor-ring.hover{
+    width: 72px; height: 72px;
+    background: rgba(201,168,118,0.08);
+    border-color: var(--accent);
+  }
+
+  /* Layout */
+  .wrap{
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 40px;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* NAV */
+  nav{
+    position: fixed; top:0; left:0; right:0;
+    padding: 28px 40px;
+    display:flex; justify-content: space-between; align-items: center;
+    z-index: 50;
+    mix-blend-mode: difference;
+  }
+  nav .brand{
+    font-family: var(--serif);
+    font-size: 18px;
+    letter-spacing: 0.02em;
+    color: var(--fg);
+    font-weight: 300;
+  }
+  nav .brand em{ color: var(--accent); font-style: italic; }
+  nav ul{
+    display:flex; gap: 36px; list-style: none;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+  nav a{
+    color: var(--fg-dim);
+    text-decoration: none;
+    position: relative;
+    padding: 4px 0;
+    transition: color .3s;
+  }
+  nav a:hover{ color: var(--fg); }
+  nav a::after{
+    content:''; position:absolute; left:0; bottom:0;
+    width:0; height:1px; background: var(--accent);
+    transition: width .4s cubic-bezier(.2,.8,.2,1);
+  }
+  nav a:hover::after{ width:100%; }
+
+  /* HERO */
+  .hero{
+    min-height: 100vh;
+    display:flex; flex-direction: column; justify-content: center;
+    position: relative;
+    padding: 120px 0 80px;
+  }
+
+  .hero-meta{
+    display:flex; justify-content: space-between;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 60px;
+  }
+  .hero-meta .dot{
+    display:inline-block; width:6px; height:6px; border-radius:50%;
+    background: var(--accent);
+    margin-right: 10px;
+    animation: breathe 4s ease-in-out infinite;
+    vertical-align: middle;
+  }
+  @keyframes breathe{
+    0%,100%{ opacity: .4; transform: scale(1); box-shadow: 0 0 0 0 rgba(201,168,118,0.5);}
+    50%{ opacity: 1; transform: scale(1.3); box-shadow: 0 0 20px 4px rgba(201,168,118,0.2);}
+  }
+
+  .hero h1{
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: clamp(56px, 10vw, 160px);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    margin-bottom: 40px;
+  }
+  .hero h1 .line{ display:block; overflow:hidden; }
+  .hero h1 .word{
+    display: inline-block;
+    transform: translateY(110%);
+  }
+  .hero h1 em{
+    font-style: italic;
+    color: var(--accent);
+    font-weight: 300;
+  }
+
+  .hero-tag{
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(20px, 2.4vw, 32px);
+    color: var(--fg-dim);
+    max-width: 720px;
+    line-height: 1.4;
+    margin-top: 20px;
+    opacity: 0;
+  }
+  .hero-tag span{ color: var(--fg); }
+
+  .hero-bottom{
+    margin-top: 80px;
+    display:flex; justify-content: space-between; align-items: flex-end;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .scroll-cue{
+    display:flex; align-items:center; gap: 12px;
+  }
+  .scroll-cue .line-anim{
+    width: 60px; height: 1px; background: var(--muted);
+    position: relative; overflow: hidden;
+  }
+  .scroll-cue .line-anim::after{
+    content:''; position:absolute; inset:0;
+    background: var(--accent);
+    transform: translateX(-100%);
+    animation: slide 2.4s ease-in-out infinite;
+  }
+  @keyframes slide{
+    0%{ transform: translateX(-100%); }
+    50%{ transform: translateX(0); }
+    100%{ transform: translateX(100%); }
+  }
+
+  /* SECTION BASE */
+  section{
+    padding: 160px 0;
+    position: relative;
+    border-top: 1px solid var(--line);
+  }
+  .section-label{
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 40px;
+    display:flex; align-items: center; gap: 14px;
+  }
+  .section-label::before{
+    content:''; width: 24px; height: 1px; background: var(--accent);
+  }
+
+  /* MANIFESTO */
+  .manifesto h2{
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: clamp(32px, 4.5vw, 64px);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    max-width: 1000px;
+  }
+  .manifesto h2 .em{
+    color: var(--accent);
+    font-style: italic;
+  }
+  .manifesto h2 .strike{
+    color: var(--muted);
+    text-decoration: line-through;
+    text-decoration-color: var(--accent-2);
+  }
+  .manifesto-grid{
+    margin-top: 100px;
+    display:grid; grid-template-columns: 1fr 1fr; gap: 80px;
+  }
+  .manifesto-grid .col p{
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 1.6;
+    color: var(--fg-dim);
+    margin-bottom: 24px;
+  }
+  .manifesto-grid .col p strong{
+    color: var(--fg);
+    font-weight: 400;
+  }
+  .manifesto-grid .col .sig{
+    font-family: var(--serif);
+    font-style: italic;
+    color: var(--accent);
+    font-size: 18px;
+    margin-top: 32px;
+  }
+
+  /* WORK */
+  .work-list{ display:flex; flex-direction: column; }
+  .work-item{
+    padding: 60px 0;
+    border-top: 1px solid var(--line);
+    display:grid;
+    grid-template-columns: 80px 1.2fr 2fr 120px;
+    gap: 40px;
+    align-items: start;
+    position: relative;
+    transition: padding .5s cubic-bezier(.2,.8,.2,1);
+    cursor: none;
+  }
+  .work-item:last-child{ border-bottom: 1px solid var(--line); }
+  .work-item::before{
+    content:''; position:absolute; inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(201,168,118,0.04), transparent);
+    opacity: 0;
+    transition: opacity .5s;
+    pointer-events: none;
+  }
+  .work-item:hover{ padding: 80px 20px; }
+  .work-item:hover::before{ opacity: 1; }
+
+  .work-num{
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 0.2em;
+  }
+  .work-title{
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: clamp(32px, 4vw, 56px);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    transition: color .4s, transform .5s cubic-bezier(.2,.8,.2,1);
+  }
+  .work-item:hover .work-title{
+    color: var(--accent);
+    transform: translateX(12px);
+  }
+  .work-title small{
+    display:block;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 14px;
+    font-weight: 400;
+  }
+  .work-desc{
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--fg-dim);
+  }
+  .work-desc .tech{
+    display:flex; flex-wrap: wrap; gap: 8px;
+    margin-top: 20px;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+  .work-desc .tech span{
+    padding: 5px 10px;
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    color: var(--fg-dim);
+  }
+  .work-arrow{
+    font-family: var(--serif);
+    font-size: 32px;
+    color: var(--muted);
+    text-align: right;
+    transition: color .4s, transform .5s cubic-bezier(.2,.8,.2,1);
+  }
+  .work-item:hover .work-arrow{
+    color: var(--accent);
+    transform: translateX(8px) rotate(-15deg);
+  }
+
+  /* WRITING */
+  .writing-intro{
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(24px, 3vw, 40px);
+    line-height: 1.3;
+    max-width: 900px;
+    color: var(--fg);
+    margin-bottom: 80px;
+  }
+  .writing-intro em{ color: var(--accent); font-style: italic; }
+
+  .essay-list{ list-style: none; }
+  .essay{
+    padding: 28px 0;
+    border-top: 1px solid var(--line);
+    display:grid;
+    grid-template-columns: 60px 1fr auto;
+    gap: 30px;
+    align-items: baseline;
+    text-decoration: none;
+    color: inherit;
+    transition: padding .4s;
+    position: relative;
+  }
+  .essay:last-child{ border-bottom: 1px solid var(--line); }
+  .essay:hover{ padding-left: 20px; }
+  .essay .n{
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.2em;
+  }
+  .essay .t{
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: 24px;
+    line-height: 1.2;
+    transition: color .3s;
+  }
+  .essay:hover .t{ color: var(--accent); }
+  .essay .t .sub{
+    display:block;
+    font-family: var(--sans);
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 6px;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+  }
+  .essay .a{
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  /* CODE / NUMBERS */
+  .numbers{
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .num{
+    padding: 50px 30px;
+    border-right: 1px solid var(--line);
+  }
+  .num:last-child{ border-right: none; }
+  .num .big{
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: clamp(48px, 6vw, 88px);
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: var(--fg);
+  }
+  .num .big em{ color: var(--accent); font-style: normal; }
+  .num .lbl{
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 16px;
+  }
+
+  /* CONTACT */
+  .contact{
+    padding: 200px 0 120px;
+    text-align: center;
+    position: relative;
+  }
+  .contact .pre{
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 40px;
+  }
+  .contact h2{
+    font-family: var(--serif);
+    font-weight: 300;
+    font-style: italic;
+    font-size: clamp(40px, 7vw, 110px);
+    line-height: 1;
+    letter-spacing: -0.03em;
+    margin-bottom: 60px;
+  }
+  .contact h2 em{ color: var(--accent); }
+  .contact-mail{
+    display:inline-block;
+    font-family: var(--serif);
+    font-size: clamp(20px, 2.5vw, 32px);
+    color: var(--fg);
+    text-decoration: none;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 6px;
+    transition: color .4s, border-color .4s;
+    position: relative;
+  }
+  .contact-mail:hover{ color: var(--accent); border-color: var(--accent); }
+
+  .socials{
+    display:flex; justify-content: center; gap: 40px;
+    margin-top: 80px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+  }
+  .socials a{
+    color: var(--fg-dim);
+    text-decoration: none;
+    position: relative;
+    padding-bottom: 4px;
+    transition: color .3s;
+  }
+  .socials a:hover{ color: var(--accent); }
+  .socials a::after{
+    content:''; position:absolute; left:0; bottom:0;
+    width:0; height:1px; background: var(--accent);
+    transition: width .4s;
+  }
+  .socials a:hover::after{ width: 100%; }
+
+  /* FOOTER */
+  footer{
+    padding: 40px;
+    border-top: 1px solid var(--line);
+    display:flex; justify-content: space-between;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  footer .breath{
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 13px;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--fg-dim);
+  }
+
+  /* Floating breath circle */
+  .breath-circle{
+    position: fixed;
+    right: 40px;
+    bottom: 40px;
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    border: 1px solid var(--accent);
+    opacity: 0.4;
+    z-index: 10;
+    animation: breatheCircle 6s ease-in-out infinite;
+    pointer-events: none;
+  }
+  .breath-circle::before{
+    content:''; position:absolute; inset: 15px;
+    border-radius: 50%;
+    border: 1px solid var(--accent);
+    opacity: 0.6;
+    animation: breatheCircle 6s ease-in-out infinite reverse;
+  }
+  @keyframes breatheCircle{
+    0%,100%{ transform: scale(1); opacity: 0.3; }
+    50%{ transform: scale(1.15); opacity: 0.6; }
+  }
+
+  /* Reveal utility */
+  .reveal{ opacity: 0; transform: translateY(40px); }
+  .reveal.in{ opacity: 1; transform: translateY(0); transition: all 1.2s cubic-bezier(.2,.8,.2,1); }
+
+  /* Image placeholder */
+  .portrait{
+    position: absolute;
+    right: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 280px;
+    height: 360px;
+    overflow: hidden;
+    opacity: 0.85;
+    filter: grayscale(1) contrast(1.1);
+    mix-blend-mode: luminosity;
+  }
+  .portrait img{
+    width: 100%; height: 100%; object-fit: cover;
+  }
+  .portrait::after{
+    content:''; position:absolute; inset:0;
+    background: linear-gradient(180deg, transparent 60%, var(--bg) 100%);
+  }
+
+  @media (max-width: 900px){
+    .wrap{ padding: 0 24px; }
+    nav{ padding: 20px 24px; }
+    nav ul{ display:none; }
+    .manifesto-grid{ grid-template-columns: 1fr; gap: 40px; }
+    .work-item{ grid-template-columns: 1fr; gap: 16px; padding: 40px 0; }
+    .work-arrow{ display:none; }
+    .numbers{ grid-template-columns: 1fr 1fr; }
+    .num{ border-right: none; border-bottom: 1px solid var(--line); }
+    .num:nth-child(odd){ border-right: 1px solid var(--line); }
+    .essay{ grid-template-columns: 40px 1fr; }
+    .essay .a{ display:none; }
+    .portrait{ display:none; }
+    .breath-circle{ display:none; }
+    html, body{ cursor: auto; }
+    .cursor-dot, .cursor-ring{ display:none; }
+    footer{ flex-direction: column; gap: 16px; padding: 30px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+<div class="vignette"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="breath-circle"></div>
+
+<nav>
+  <div class="brand">pks <em>/</em> singh</div>
+  <ul>
+    <li><a href="#work" data-hover>Work</a></li>
+    <li><a href="#writing" data-hover>Writing</a></li>
+    <li><a href="#contact" data-hover>Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<header class="hero wrap">
+  <div class="hero-meta">
+    <div><span class="dot"></span> Dehradun, IN &nbsp;·&nbsp; 30.3°N 78.0°E</div>
+    <div>June 2026 &nbsp;·&nbsp; BCA III</div>
+  </div>
+
+  <h1>
+    <span class="line"><span class="word">Priyanshu</span></span>
+    <span class="line"><span class="word"><em>Kumar</em></span> <span class="word">Singh.</span></span>
+  </h1>
+
+  <p class="hero-tag">
+    I build <span>systems</span> that execute. I write <span>essays</span> that unsettle.<br/>
+    Mostly, I sit here — <em>breathing</em>.
+  </p>
+
+  <div class="hero-bottom">
+    <div class="scroll-cue">
+      <span>Scroll</span>
+      <div class="line-anim"></div>
+    </div>
+    <div>Backend · Systems · Thought</div>
+  </div>
+
+  <div class="portrait" id="portrait">
+    <img id="portraitImg" alt="" src="./image.png"/>
+  </div>
+</header>
+
+<!-- MANIFESTO -->
+<section class="manifesto wrap" id="manifesto">
+  <div class="section-label reveal">01 — Manifesto</div>
+  <h2 class="reveal">
+    A <span class="em">BCA student</span> who wrote a Unix shell to understand how processes <span class="em">live and die</span>.<br/>
+    Who built a distributed engine to understand how systems <span class="em">scale</span>.<br/>
+    Who writes essays to understand why we <span class="strike">pretend</span> any of it means something — and then, <span class="em">why it does</span>.
+  </h2>
+
+  <div class="manifesto-grid">
+    <div class="col reveal">
+      <p><strong>I am not a product of my transcript.</strong> A 5.8 CGPA says almost nothing about the 500 REPL iterations I ran until my shell stopped leaking. It says nothing about the night I fought CORS, mixed content, and a 1GB RAM ceiling until a VM in Azure began answering to my name.</p>
+      <p>I read Nietzsche the way some people scroll. I lift weights the way some people pray. I solve LeetCode problems the way a monk counts beads — not for the number, but for the attention.</p>
+      <div class="sig">— the short version</div>
+    </div>
+    <div class="col reveal">
+      <p><strong>I build for early-stage rooms</strong> where one person can ship a backend, a worker queue, a reverse proxy, and a frontend before lunch. I don't want a bootcamp-shaped career. I want a craft-shaped one.</p>
+      <p>My long game is quiet: earn enough from code to choose a small, grounded life — a house with a garden, a sibling who doesn't have to worry, essays that outlive the algorithm that hosted them.</p>
+      <p>Until then — I sit here. I build. I breathe.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WORK -->
+<section id="work" class="wrap">
+  <div class="section-label reveal">02 — Work</div>
+  <div class="work-list">
+
+    <a href="https://github.com/yansh07/abyss-shell" target="_blank" class="work-item" data-hover style="text-decoration:none; color:inherit;">
+      <div class="work-num">/ 01</div>
+      <div class="work-title">
+        Abyss Shell
+        <small>Unix Shell · C · POSIX</small>
+      </div>
+      <div class="work-desc">
+        A Unix shell written in C. Forks, execs, waits. Pipes chained arbitrarily. I/O redirected. Tokens parsed in two phases because <em>strtok</em> lied to me.
+        <div class="tech">
+          <span>C</span><span>Linux Kernel API</span><span>POSIX</span><span>fork/execvp/waitpid</span><span>dup2</span>
+        </div>
+      </div>
+      <div class="work-arrow">→</div>
+    </a>
+
+    <a href="https://oopsengine.vercel.app/" target="_blank" class="work-item" data-hover style="text-decoration:none; color:inherit;">
+      <div class="work-num">/ 02</div>
+      <div class="work-title">
+        OopsEngine
+        <small>Remote Code Execution · Live</small>
+      </div>
+      <div class="work-desc">
+        A distributed code execution platform. FastAPI talks to Celery, Celery talks to Docker, Docker runs untrusted code inside a 1GB VM that shouldn't be able to hold all of it. It does.
+        <div class="tech">
+          <span>FastAPI</span><span>Next.js</span><span>Docker SDK</span><span>Redis</span><span>Celery</span><span>PostgreSQL</span><span>Caddy</span><span>JWKS</span>
+        </div>
+      </div>
+      <div class="work-arrow">→</div>
+    </a>
+
+  </div>
+</section>
+
+<!-- NUMBERS -->
+<section class="wrap" style="padding: 80px 0;">
+  <div class="numbers">
+    <div class="num reveal">
+      <div class="big"><em>180</em>+</div>
+      <div class="lbl">LeetCode · Python</div>
+    </div>
+    <div class="num reveal">
+      <div class="big"><em>11</em></div>
+      <div class="lbl">Essays Published</div>
+    </div>
+    <div class="num reveal">
+      <div class="big"><em>2</em></div>
+      <div class="lbl">Production Systems</div>
+    </div>
+    <div class="num reveal">
+      <div class="big"><em>1</em></div>
+      <div class="lbl">Life · Lived Slowly</div>
+    </div>
+  </div>
+</section>
+
+<!-- WRITING -->
+<section id="writing" class="wrap">
+  <div class="section-label reveal">03 — Writing</div>
+  <p class="writing-intro reveal">
+    Essays on <em>determinism</em>, <em>meritocracy</em>, <em>theology</em>, and the things we pretend to believe — published on Medium, read by strangers, kept by a few.
+  </p>
+
+  <ul class="essay-list">
+    <a href="https://yansh08.medium.com/meritocracy-is-a-story-rich-people-tell-poor-people-to-keep-them-competing-338fb0b7738c" target="_blank" class="essay" data-hover>
+      <div class="n">/ 01</div>
+      <div class="t">Meritocracy Is a Story Rich People Tell Poor People To Keep Them Competing <span class="sub">On credential inflation, institutional filtering, and the BCA who out-built the BTech.</span></div>
+      <div class="a">Medium →</div>
+    </a>
+    <a href="https://yansh08.medium.com/free-will-is-a-privilege-of-the-powerful-a25bb6769dd3" target="_blank" class="essay" data-hover>
+      <div class="n">/ 02</div>
+      <div class="t">Free Will is a Privilege of the Powerful <span class="sub">If no one is responsible, who benefits from the story of responsibility?</span></div>
+      <div class="a">Medium →</div>
+    </a>
+    <a href="https://yansh08.medium.com/suffering-is-not-necessary-it-is-inevitable-b7a906000247" target="_blank" class="essay" data-hover>
+      <div class="n">/ 03</div>
+      <div class="t">Suffering is not Necessary. It is Inevitable. <span class="sub">Theology, neuroscience, and the comfort of totalizing answers.</span></div>
+      <div class="a">Medium →</div>
+    </a>
+    <a href="https://yansh08.medium.com/democracy-isnt-sacred-questioning-democracy-deff9e6ab399" target="_blank" class="essay" data-hover>
+      <div class="n">/ 04</div>
+      <div class="t">Democracy isn’t sacred: Questioning <em>Democracy</em>  <span class="sub">Evolutionary psychology meets the ballot box.</span></div>
+      <div class="a">Medium →</div>
+    </a>
+    <a href="https://yansh08.medium.com/" target="_blank" class="essay" data-hover>
+      <div class="n">/ 05</div>
+      <div class="t">Seven More Essays <span class="sub">Anti-natalism. Feminism. Kafka. Foucault. The self-undermining argument. Read the rest.</span></div>
+      <div class="a">Medium →</div>
+    </a>
+  </ul>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact wrap">
+  <div class="pre reveal">04 — Contact</div>
+  <h2 class="reveal">Let's build something<br/><em>that stays.</em></h2>
+  <a href="mailto:pksingh69313@gmail.com" class="contact-mail reveal" data-hover>pksingh69313@gmail.com</a>
+
+  <div class="socials reveal">
+    <a href="https://github.com/yansh07" target="_blank" data-hover>GitHub</a>
+    <a href="https://linkedin.com/in/yansh08" target="_blank" data-hover>LinkedIn</a>
+    <a href="https://yansh08.medium.com/" target="_blank" data-hover>Medium</a>
+  </div>
+</section>
+
+<footer>
+  <div>© 2026 · Priyanshu Kumar Singh</div>
+  <div class="breath">"Enough. These few words are enough. If not these words, this breath."</div>
+  <div>Built in Dehradun · Served in stillness</div>
+</footer>
+
+<script>
+  // ---------- Portrait image ----------
+  // Generate a moody, philosophical portrait placeholder via the image tool
+  // We'll inject it after generation
+  const portraitImg = document.getElementById('portraitImg');
+  // placeholder handled below via fetch of generated URL
+
+  // ---------- Custom cursor ----------
+  const dot = document.getElementById('cursorDot');
+  const ring = document.getElementById('cursorRing');
+  let mx = window.innerWidth/2, my = window.innerHeight/2;
+  let rx = mx, ry = my;
+
+  window.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    dot.style.transform = `translate(${mx}px, ${my}px) translate(-50%,-50%)`;
+  });
+
+  function animateRing(){
+    rx += (mx - rx) * 0.15;
+    ry += (my - ry) * 0.15;
+    ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%,-50%)`;
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+
+  document.querySelectorAll('[data-hover], a, button').forEach(el => {
+    el.addEventListener('mouseenter', () => ring.classList.add('hover'));
+    el.addEventListener('mouseleave', () => ring.classList.remove('hover'));
+  });
+
+  // ---------- Hero word reveal ----------
+  gsap.registerPlugin(ScrollTrigger, TextPlugin);
+
+  gsap.to('.hero h1 .word', {
+    y: 0,
+    duration: 1.4,
+    ease: 'power4.out',
+    stagger: 0.12,
+    delay: 0.3
+  });
+
+  gsap.to('.hero-tag', {
+    opacity: 1,
+    duration: 1.6,
+    ease: 'power2.out',
+    delay: 1.4
+  });
+
+  gsap.from('.hero-meta, .hero-bottom', {
+    opacity: 0,
+    y: 20,
+    duration: 1.2,
+    ease: 'power2.out',
+    delay: 1.8,
+    stagger: 0.2
+  });
+
+  // ---------- Scroll reveals ----------
+  document.querySelectorAll('.reveal').forEach(el => {
+    ScrollTrigger.create({
+      trigger: el,
+      start: 'top 85%',
+      onEnter: () => el.classList.add('in'),
+      once: true
+    });
+  });
+
+  // ---------- Parallax on portrait ----------
+  gsap.to('#portrait', {
+    yPercent: -15,
+    ease: 'none',
+    scrollTrigger: {
+      trigger: '.hero',
+      start: 'top top',
+      end: 'bottom top',
+      scrub: true
+    }
+  });
+
+  // ---------- Section label slide ----------
+  document.querySelectorAll('.section-label').forEach(el => {
+    gsap.from(el, {
+      x: -30,
+      opacity: 0,
+      duration: 1,
+      ease: 'power3.out',
+      scrollTrigger: { trigger: el, start: 'top 85%' }
+    });
+  });
+
+  // ---------- Work items stagger ----------
+  gsap.utils.toArray('.work-item').forEach((item, i) => {
+    gsap.from(item, {
+      opacity: 0,
+      y: 60,
+      duration: 1.2,
+      ease: 'power3.out',
+      scrollTrigger: { trigger: item, start: 'top 85%' },
+      delay: i * 0.1
+    });
+  });
+
+  // ---------- Essay list ----------
+  gsap.utils.toArray('.essay').forEach((item, i) => {
+    gsap.from(item, {
+      opacity: 0,
+      x: -30,
+      duration: 1,
+      ease: 'power3.out',
+      scrollTrigger: { trigger: item, start: 'top 90%' },
+      delay: i * 0.08
+    });
+  });
+
+  // ---------- Number count up ----------
+  document.querySelectorAll('.num .big').forEach(el => {
+    const text = el.textContent;
+    const match = text.match(/\d+/);
+    if(!match) return;
+    const target = parseInt(match[0]);
+    const suffix = text.replace(/\d+/, '');
+    const obj = { val: 0 };
+    ScrollTrigger.create({
+      trigger: el,
+      start: 'top 85%',
+      once: true,
+      onEnter: () => {
+        gsap.to(obj, {
+          val: target,
+          duration: 2,
+          ease: 'power2.out',
+          onUpdate: () => {
+            el.innerHTML = `<em>${Math.floor(obj.val)}</em>${suffix.replace(/<[^>]*>?/gm,'')}`;
+          }
+        });
+      }
+    });
+  });
+
+  // ---------- Smooth scroll ----------
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if(target){
+        e.preventDefault();
+        window.scrollTo({ top: target.offsetTop - 40, behavior: 'smooth' });
+      }
+    });
+  });
+
+  // ---------- Magnetic effect on nav links ----------
+  document.querySelectorAll('nav a').forEach(link => {
+    link.addEventListener('mousemove', e => {
+      const rect = link.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width/2;
+      const y = e.clientY - rect.top - rect.height/2;
+      gsap.to(link, { x: x * 0.3, y: y * 0.3, duration: 0.4, ease: 'power2.out' });
+    });
+    link.addEventListener('mouseleave', () => {
+      gsap.to(link, { x: 0, y: 0, duration: 0.6, ease: 'elastic.out(1, 0.4)' });
+    });
+  });
+
+</script>
+</body>
+</html>

@@ -1,1 +1,0 @@
-Oh, fascinating. I handcrafted an entire website above, and you've come down here to inspect the README. Remarkable behavior. Truly National Geographic material.
